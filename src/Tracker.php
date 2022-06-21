@@ -61,12 +61,14 @@ class Tracker
     {
         try {
             $trackInfo = json_decode(file_get_contents($url));
+            $trackEvents = json_decode(file_get_contents($url . "/events"));
         } catch (Exception $e) {
             showError(501, 'Ошибка получения справочника');
         }
         return [
             'human-like-text' => setParagraphs($this->Humanization($trackInfo)),
-            'trackinfo' => setParagraphs($this->Details($trackInfo))
+            'trackinfo' => setParagraphs($this->Details($trackInfo)),
+            'trackevents' => $this->Events($trackEvents)
         ];
     }
 
@@ -188,4 +190,34 @@ class Tracker
         return "{$department->postindex}, {$department->dep_name}  " .
             "<i>/ " . date('H:i d.m.Y', strtotime($department->date)) . "</i>";
     }
+
+    protected function Events(object $trackEvents): string
+    {
+        if (empty($trackEvents->events)) return '';
+        $text = "";
+        foreach ($trackEvents->events as $event) {
+            $text .= "<dt>$event->date</dt>";
+            foreach ($event->activity as $activity) {
+                $text .= "<dd>" .
+                    "<time>{$activity->time}</time>: " .
+                    $this->getStatusList($activity->status) . " " .
+                    "<i>({$activity->name} / {$activity->zip}, {$activity->city})</i>" .
+                    "</dd>";
+            }
+        }
+        return "<h3>События:</h3><dl>{$text}</dl>";
+    }
+
+    private function getStatusList($list): string
+    {
+        $text = "";
+        if (is_string($list)) {
+            return $this->statusCode($list);
+        }
+        foreach ($list as $item) {
+            $text .= ($text ? ", " : "") . $this->statusCode($item);
+        }
+        return $text;
+    }
+
 }

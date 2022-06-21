@@ -60,6 +60,17 @@ article .details > button {
     padding: 0.5rem 1rem;
 }
 
+.details h3 {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: #64748b;
+}
+
+.details dt {
+    margin-top: 1rem;
+    color: #64748b;
+}
+
 .details > div {
     display: none;
 }
