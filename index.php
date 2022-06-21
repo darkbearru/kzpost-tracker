@@ -7,6 +7,5 @@ const TEMPLATE_DIR = __DIR__ . '/src/resources/';
 require_once(__DIR__ . '/src/functions.php');
 require_once(__DIR__ . '/src/Tracker.php');
 
-
 $tracker = new Tracker();
 echo $tracker->run();
