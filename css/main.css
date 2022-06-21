@@ -1,0 +1,269 @@
+body {
+    display: grid;
+    grid-template-rows: 90px auto 60px;
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, Arial, Helvetica;
+    font-size: 16px;
+    line-height: 1.5rem;
+    height: 100vh;
+}
+
+header {
+    grid-row: 1;
+    height: auto;
+    background-color: #2563eb;
+    color: #fff;
+}
+
+main {
+    grid-row: 2;
+    padding: 2rem 0;
+}
+
+main > section {
+    flex-wrap: wrap;
+}
+
+main article {
+    width: 100%;
+    font-size: 1rem;
+}
+
+footer {
+    grid-row: 3;
+    background-color: #64748b;
+    color: #f1f5f9;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+header > section {
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    white-space: nowrap;
+    color: #bfdbfe;
+    padding: 0 1rem;
+    margin: 0 0 1rem 0;
+}
+
+section {
+    display: flex;
+    margin: 0 auto;
+}
+
+
+@media (min-width: 768px) {
+    body {
+        grid-template-rows: 60px auto 60px;
+    }
+
+    header {
+        height: 60px;
+    }
+
+    header h1 {
+        width: auto;
+    }
+
+    section {
+        max-width: 760px;
+    }
+
+    header > section {
+        flex-wrap: nowrap;
+    }
+}
+
+form {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    background-color: #cbd5e1;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    position: relative;
+}
+
+form > div {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+form > div + p {
+    display: none;
+}
+
+form > div.error + p {
+    display: block;
+}
+
+form > div + p + div {
+    margin-top: 0.7rem;
+}
+
+form > div.error .input-text {
+    border: 2px solid #b91c1c;
+}
+
+.error-message {
+    font-size: 0.8rem;
+    line-height: 1rem;
+    margin: 0.5rem 0;
+    color: #b91c1c;
+    padding-left: 0.6rem;
+}
+
+form button {
+    font-size: 1rem;
+    background-color: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 0 0.5rem 0.5rem 0;
+    padding: 0 1rem;
+}
+
+.input-text {
+    font-size: 1rem;
+    background-color: #fff;
+    border: 2px solid #fff;
+    border-radius: 0.5rem 0 0 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    color: #334155;
+    outline: none;
+}
+
+.input-text:focus {
+    border: 2px solid #2563eb;
+}
+
+.input-text::placeholder {
+    color: #64748b;
+}
+
+.error .input-text {
+}
+
+form input[type='radio'] {
+    display: none;
+}
+
+form input[type='radio'] + label {
+    position: relative;
+    padding-left: 1.2rem;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    margin: 0 0.5rem;
+}
+
+form input[type='radio'] + label::after,
+form input[type='radio'] + label::before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+}
+
+form input[type='radio'] + label::before {
+    left: 0px;
+    top: 0.2rem;
+    border: 2px solid #2563eb;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 0.8rem;
+}
+
+form input[type='radio']:checked + label::before {
+    background-color: #2563eb;
+}
+
+form input[type='radio']:checked + label::after {
+    left: 0.3rem;
+    top: 0.5rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    background-color: #fff;
+    border-radius: 0.4rem;
+}
+
+
+.form-text {
+    color: #334155;
+}
+
+
+form.is-loading .loader {
+    display: flex;
+}
+
+.loader {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.clock-loader {
+    --clock-color: #2563eb;
+    --clock-width: 2rem;
+    --clock-radius: calc(var(--clock-width) / 2);
+    --clock-minute-length: calc(var(--clock-width) * 0.4);
+    --clock-hour-length: calc(var(--clock-width) * 0.2);
+    --clock-thickness: 0.2rem;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--clock-width);
+    height: var(--clock-width);
+    border: 3px solid var(--clock-color);
+    border-radius: 50%;
+}
+
+.clock-loader::before,
+.clock-loader::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--clock-radius) * 0.25);
+    width: var(--clock-thickness);
+    background: var(--clock-color);
+    border-radius: 10px;
+    transform-origin: center calc(100% - calc(var(--clock-thickness) / 2));
+    animation: spin infinite linear;
+}
+
+.clock-loader::before {
+    height: var(--clock-minute-length);
+    animation-duration: 2s;
+}
+
+.clock-loader::after {
+    top: calc(var(--clock-radius) * 0.25 + var(--clock-hour-length));
+    height: var(--clock-hour-length);
+    animation-duration: 15s;
+}
+
+
+@keyframes spin {
+    to {
+        transform: rotate(1turn);
+    }
+}
