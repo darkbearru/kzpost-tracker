@@ -28,6 +28,48 @@ main > section {
 main article {
     width: 100%;
     font-size: 1rem;
+    color: #1e293b;
+    margin: 0 1rem;
+}
+
+article i {
+    font-style: normal;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+article .details {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #fff;
+    border-radius: 0.5rem;
+    position: relative;
+    font-size: 0.95rem;
+}
+
+article .details > button {
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    background-color: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.details > div {
+    display: none;
+}
+
+.details.is-show {
+    border: 1px solid #cbd5e1;
+}
+
+.details.is-show > div {
+    display: block;
 }
 
 footer {
@@ -63,6 +105,16 @@ section {
     margin: 0 auto;
 }
 
+form {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 1rem;
+    background-color: #cbd5e1;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    position: relative;
+}
+
 
 @media (min-width: 768px) {
     body {
@@ -84,17 +136,21 @@ section {
     header > section {
         flex-wrap: nowrap;
     }
+
+    article {
+        margin: 0;
+    }
+
+    form {
+        margin: 0 auto;
+    }
+
+    article .details {
+        padding: 2rem;
+    }
+
 }
 
-form {
-    width: 100%;
-    max-width: 360px;
-    margin: 0 auto;
-    background-color: #cbd5e1;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    position: relative;
-}
 
 form > div {
     display: flex;
@@ -109,9 +165,6 @@ form > div.error + p {
     display: block;
 }
 
-form > div + p + div {
-    margin-top: 0.7rem;
-}
 
 form > div.error .input-text {
     border: 2px solid #b91c1c;
@@ -155,54 +208,6 @@ form button {
 
 .error .input-text {
 }
-
-form input[type='radio'] {
-    display: none;
-}
-
-form input[type='radio'] + label {
-    position: relative;
-    padding-left: 1.2rem;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: baseline;
-    margin: 0 0.5rem;
-}
-
-form input[type='radio'] + label::after,
-form input[type='radio'] + label::before {
-    position: absolute;
-    content: '';
-    display: inline-block;
-}
-
-form input[type='radio'] + label::before {
-    left: 0px;
-    top: 0.2rem;
-    border: 2px solid #2563eb;
-    width: 0.8rem;
-    height: 0.8rem;
-    border-radius: 0.8rem;
-}
-
-form input[type='radio']:checked + label::before {
-    background-color: #2563eb;
-}
-
-form input[type='radio']:checked + label::after {
-    left: 0.3rem;
-    top: 0.5rem;
-    width: 0.45rem;
-    height: 0.45rem;
-    background-color: #fff;
-    border-radius: 0.4rem;
-}
-
-
-.form-text {
-    color: #334155;
-}
-
 
 form.is-loading .loader {
     display: flex;

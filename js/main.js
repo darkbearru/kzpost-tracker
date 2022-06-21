@@ -3,7 +3,6 @@ class Form {
     input = document.querySelector('input.input-text');
     inputLine = this.input.parentNode;
     button = this.form.querySelector('button');
-    type = this.form.querySelector('input[name="type"]');
     article = document.querySelector(".track-info");
 
     constructor() {
@@ -19,22 +18,33 @@ class Form {
         }
         this.inputLine.classList.remove('error');
         this.form.classList.add('is-loading');
-        if (this.type.value === 'php') {
-            fetch(`index.php?track_number=${this.input.value}`,)
-                .then(response => response.text())
-                .then(data => this.showHtml(data));
-        }
+
+        fetch(`index.php?track_number=${this.input.value}`,)
+            .then(response => response.text())
+            .then(data => this.showHtml(data));
         return false;
     }
 
     showHtml(data) {
         this.form.classList.remove('is-loading');
         this.article.innerHTML = data;
+        this.initEvents();
     }
 
     checkForm() {
         let value = this.input.value;
         return value.match(/^[A-Z]{2}\d{9}[A-Z]{2}$/m);
+    }
+
+    initEvents() {
+        this._details = document.querySelector('article>.details');
+        if (!this._details) return false;
+        this._btn = this._details.querySelector('button');
+        console.log(this._btn);
+        this._btn.addEventListener('click', e => {
+            this._details.classList.toggle('is-show');
+            this._btn.innerText = (this._btn.innerText === 'Детально' ? 'Скрыть' : 'Детально');
+        });
     }
 }
 
