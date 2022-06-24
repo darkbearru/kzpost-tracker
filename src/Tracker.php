@@ -44,8 +44,9 @@ class Tracker
     {
         if ($this->trackNumber) {
             $this->dictionary = getDictionary(REMOTE_URL . REMOTE_DICTIONARY);
+            $_REQUEST['track_number'] = 'RV018353365KZ';
             return showHTML(
-                $this->getTrackInfo(REMOTE_URL . $_REQUEST['track_number']),
+                $this->getTrackInfo(REMOTE_URL, $_REQUEST['track_number']),
                 '_track_info.html'
             );
         }
@@ -57,19 +58,25 @@ class Tracker
      * @param $url
      * @return array
      */
-    protected function getTrackInfo($url): array
+    protected function getTrackInfo(string $url, string $number): array
     {
+        if (file_exists(CACHE_DIR . $number . '.json')) {
+            return json_decode(file_get_contents(CACHE_DIR . $number . '.json'), true);
+        }
         try {
+            $url .= $number;
             $trackInfo = json_decode(file_get_contents($url));
             $trackEvents = json_decode(file_get_contents($url . "/events"));
         } catch (Exception $e) {
             showError(501, 'Ошибка получения справочника');
         }
-        return [
+        $_result = [
             'human-like-text' => setParagraphs($this->Humanization($trackInfo)),
             'trackinfo' => setParagraphs($this->Details($trackInfo)),
             'trackevents' => $this->Events($trackEvents)
         ];
+        file_put_contents(CACHE_DIR . $number . '.json', json_encode($_result, JSON_UNESCAPED_UNICODE));
+        return $_result;
     }
 
     /**
